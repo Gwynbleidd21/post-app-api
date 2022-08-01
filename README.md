@@ -34,3 +34,5 @@ Once token is created, the user needs to be authorized by tokenAuth method via A
 Token generatedtoken
 ``` 
 
+API is documented automatically with DRF
+
