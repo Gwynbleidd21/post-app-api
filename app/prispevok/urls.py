@@ -14,4 +14,3 @@ app_name = 'prispevok'
 urlpatterns = [
     path('', include(router.urls))
 ]
-

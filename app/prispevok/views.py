@@ -17,13 +17,14 @@ class PrispevokViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         """Retrieve prispevok for authenticated user"""
-        respone = self.queryset.filter(user=self.request.user).order_by('-id')
-        if respone:
-            return respone
+        uid = self.request.user.user_id
+        response = self.queryset.filter(user=self.request.user).filter(
+            userId=uid).order_by('-id')
+        if response:
+            return response
         else:
-            url = f'https://jsonplaceholder.typicode.com/posts/?userId={self.request.user.user_id}'
-            r = requests.get(url, headers={'Content-Type':
-                                               'application/json'})
+            url = f'https://jsonplaceholder.typicode.com/posts/?userId={uid}'
+            r = requests.get(url, headers={'Content-Type': 'application/json'})
             prispevky = r.json()
             for prispevok in prispevky:
                 Prispevok.objects.create(user=self.request.user, **prispevok)
